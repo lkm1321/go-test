@@ -22,17 +22,25 @@ main()
 
 	Timer timer = {
 		.millis = 100, 
-		.message = "hello"
+		.message = "hello",
+		.enabled = false
 	}; 
 
-	StartTimer(timer); 
+	auto goTimer = InitGoTimer(&timer); 
+	timer.enabled = true; 
+
+	StartGoTimer(goTimer); 
 	while(!should_die){
 		if (should_toggle)
 		{
-			should_toggle = false; 
-			ToggleTimer(); 
+			should_toggle = false;
+			timer.enabled = !timer.enabled; 
+			if(timer.enabled)
+			{
+				StartGoTimer(goTimer);
+			}
 		}
-	} 
+	}
 	StopTimer(); 
 	std::cout << "finished!" << std::endl; 
 }
