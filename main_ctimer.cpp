@@ -34,14 +34,10 @@ main()
 		if (should_toggle)
 		{
 			should_toggle = false;
-			timer.enabled = !timer.enabled; 
-			if(timer.enabled)
-			{
-				StartGoTimer(goTimer);
-			}
+			timer.enabled = !timer.enabled;
+			if(timer.enabled) StartGoTimer(goTimer); 
 		}
 	}
-	StopTimer(); 
 	std::cout << "finished!" << std::endl; 
 }
 

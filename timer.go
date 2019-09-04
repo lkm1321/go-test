@@ -93,9 +93,8 @@ func (t *Timer) GetMillis() int {
 
 func (t *Timer) Isr() {
 	if bool( t.Enabled() ) {
-		fmt.Println(t.GetMillis())
 		fmt.Println(t.GetString())
-		time.AfterFunc(time.Duration(t.GetMillis()), t.Isr)
+		time.AfterFunc(time.Duration(t.GetMillis())*time.Millisecond, t.Isr)
 	}
 }
 
@@ -107,7 +106,7 @@ func InitGoTimer(CTimer C.TimerPtr) (unsafe.Pointer) {
 //export StartGoTimer
 func StartGoTimer(goTimerUnsafe unsafe.Pointer) {
 	var goTimer *Timer = Restore(goTimerUnsafe).(*Timer)
-	time.AfterFunc(time.Duration(goTimer.Cobj().millis), goTimer.Isr)
+	time.AfterFunc(time.Duration(goTimer.Cobj().millis)*time.Millisecond, goTimer.Isr)
 }
 
 type IntervalTimer struct {

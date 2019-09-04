@@ -1,3 +1,6 @@
+ctimer: main_ctimer.cpp timer.h timer.so
+	g++ -o ctimer main_ctimer.cpp ./timer.so
+
 timer: main_timer.cpp timer.h timer.so
 	g++ -o timer main_timer.cpp ./timer.so
 
