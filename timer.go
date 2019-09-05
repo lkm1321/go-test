@@ -22,6 +22,11 @@ import (
 	"sync"
 )
 
+/*
+Below is a copy-and-paste from the https://github.com/mattn/go-pointer project. 
+It's used to pass GoPointer to a Go object to the C space, so that the Go object persists throughout the C program. 
+*/
+
 var (
 	mutex sync.Mutex
 	store = map[unsafe.Pointer]interface{}{}
@@ -71,6 +76,11 @@ func Unref(ptr unsafe.Pointer) {
 	C.free(ptr)
 }
 
+/*
+Presented below is an approach for interfacing a C object to a Go object in a transparent manner. 
+The GoObject is really just a reference to the orinal C object. 
+To use this part, compile make ctimer, and run ./ctimer
+*/
 type Timer struct {
 	_Timer C.TimerPtr
 }
@@ -109,6 +119,13 @@ func StartGoTimer(goTimerUnsafe unsafe.Pointer) {
 	time.AfterFunc(time.Duration(goTimer.Cobj().millis)*time.Millisecond, goTimer.Isr)
 }
 
+/*
+Presented below is an approach where we copy a C object to Go object by value. 
+The C object is only involved in the creation of Go object. 
+The Go object must be a global in the Go space, so that it persists after conversion. 
+Then, extern functions are used to perform operations on the Go object. 
+To use this example. compile make timer, and run ./main
+*/
 type IntervalTimer struct {
 	Interval time.Duration
 	Enabled bool
