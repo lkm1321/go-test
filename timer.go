@@ -25,8 +25,8 @@ import (
 /*
 Below is a copy-and-paste from the https://github.com/mattn/go-pointer project. 
 It's used to pass GoPointer to a Go object to the C space, so that the Go object persists throughout the C program. 
+Doing so allows us to convert a C object to Go object by refernce, so the transparency is improved. 
 */
-
 var (
 	mutex sync.Mutex
 	store = map[unsafe.Pointer]interface{}{}
