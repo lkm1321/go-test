@@ -5,6 +5,7 @@ package main
 #include <stdlib.h>
 #include <stdbool.h> 
 
+// This struct type can be used from the Go space as C.Timer
 typedef struct _Timer{
 	int millis; 
 	char* message; 
