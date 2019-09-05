@@ -12,6 +12,7 @@ typedef struct _Timer{
 	bool enabled; 
 } Timer; 
 
+// The struct ptr can now be used from the Go space as C.TimerPtr
 typedef Timer* TimerPtr; 
 */
 import "C"
